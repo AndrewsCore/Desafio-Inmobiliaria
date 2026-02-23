@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Propiedades en Venta - Listado Completo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>Inmobiliaria ADL</h1>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="ventas.html">En venta</a></li>
+            <li><a href="alquiler.html">Alquiler</a></li>
+        </ul>
+    </nav>
+
+    <div class="contenedor">
+        <h2>Todas nuestras propiedades en venta</h2>
+        <div id="contenedor-ventas-todas" class="grid-propiedades"></div>
+    </div>
+
+    <script src="assets/js/propiedades_venta.js"></script>
+    <script>
+        const contenedor = document.getElementById('contenedor-ventas-todas');
+        let html = "";
+        
+        //  ciclo para recorrer TODO el arreglo de ventas
+        propiedades_venta.forEach(p => {
+            html += `
+                <article class="tarjeta">
+                    <img src="${p.src}" alt="${p.nombre}">
+                    <div class="tarjeta-cuerpo">
+                        <h3>${p.nombre}</h3>
+                        <p>${p.descripcion}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${p.ubicacion}</p>
+						<p>
+							<i class="fas fa-bed"></i> ${p.habitaciones} Habitaciones | 
+							<i class="fas fa-bath"></i> ${p.baños} Baños
+						</p>
+                        <p class="tarjeta-precio">$${p.costo.toLocaleString()}</p>
+                        <p class="${p.smoke ? 'permitido' : 'prohibido'}">
+                            <i class="fas ${p.smoke ? 'fa-smoking' : 'fa-smoking-ban'}"></i>
+                            ${p.smoke ? 'Permitido fumar' : 'No se permite fumar'}
+                        </p>
+                        <p class="${p.pets ? 'permitido' : 'prohibido'}">
+                            <i class="fas ${p.pets ? 'fa-paw' : 'fa-ban'}"></i>
+                            ${p.pets ? 'Mascotas permitidas' : 'No se permiten mascotas'}
+                        </p>
+                    </div>
+                </article>
+            `;
+        });
+        contenedor.innerHTML = html;
+    </script>
+</body>
+</html>

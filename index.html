@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria ADL - Inicio</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <nav>
+        <h1>Inmobiliaria ADL</h1>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="ventas.html">En venta</a></li>
+            <li><a href="alquiler.html">Alquiler</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div>
+            <h2>Encuentra tu nueva propiedad</h2>
+            <p>Las mejores opciones para vivir como siempre soñaste</p>
+        </div>
+    </div>
+
+    <div class="contenedor">
+        <!-- Sección Ventas -->
+        <section id="ventas">
+            <h2>Propiedades en venta</h2>
+            <div id="contenedor-ventas" class="grid-propiedades">
+                <!-- propiedades de venta-->
+            </div>
+            <a href="ventas.html" class="btn-ver-mas">Ver todas las propiedades en venta</a>
+        </section>
+
+        <!-- Sección Alquiler -->
+        <section id="alquiler" style="margin-top: 4rem;">
+            <h2>Propiedades en alquiler</h2>
+            <div id="contenedor-alquiler" class="grid-propiedades">
+                <!-- propiedades de alquiler -->
+            </div>
+            <a href="alquiler.html" class="btn-ver-mas">Ver todas las propiedades en alquiler</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Inmobiliaria ADL - Desafío Latam</p>
+    </footer>
+
+	<script src="assets/js/propiedades_venta.js"></script>
+	<script src="assets/js/propiedades_alquiler.js"></script>
+    
+    <script>
+                
+        // Función para renderizar un máximo de 3 propiedades
+        function renderizarResumen(lista, idContenedor) {
+            const contenedor = document.getElementById(idContenedor);
+            if (!contenedor) return;
+            
+            let htmlContenido = '';
+
+            // Mostrar solo 3 propiedades
+            for (let i = 0; i < 3 && i < lista.length; i++) {
+                const propiedad = lista[i];
+
+                // Condicionales verdadero o false para fumar y Mascotas
+                const htmlHumo = propiedad.smoke 
+                    ? `<p class="permitido"><i class="fas fa-smoking"></i> Permitido fumar</p>` 
+                    : `<p class="prohibido"><i class="fas fa-smoking-ban"></i> No se permite fumar</p>`;
+
+                const htmlMascotas = propiedad.pets 
+                    ? `<p class="permitido"><i class="fas fa-paw"></i> Mascotas permitidas</p>` 
+                    : `<p class="prohibido"><i class="fas fa-ban"></i> No se permiten mascotas</p>`;
+
+                // tarjetas de propiedades innerHTML
+                htmlContenido += `
+                    <div class="tarjeta">
+                        <img src="${propiedad.src}" alt="${propiedad.nombre}">
+                        <div class="tarjeta-cuerpo">
+                            <h3>${propiedad.nombre}</h3>
+                            <p>${propiedad.descripcion}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${propiedad.ubicacion}</p>
+                            <p>
+                                <i class="fas fa-bed"></i> ${propiedad.habitaciones} Habitaciones | 
+                                <i class="fas fa-bath"></i> ${propiedad.baños} Baños
+                            </p>
+                            <p class="tarjeta-precio">$${propiedad.costo.toLocaleString()}</p>
+                            ${htmlHumo}
+                            ${htmlMascotas}
+                        </div>
+                    </div>
+                `;
+            }
+            contenedor.innerHTML = htmlContenido;
+        }
+
+        // Ejecuta carga de las propiedades  al cargar la página
+        window.addEventListener('load', () => {
+            renderizarResumen(propiedades_venta, 'contenedor-ventas');
+            renderizarResumen(propiedades_alquiler, 'contenedor-alquiler');
+        });
+    </script>
+</body>
+</html>
